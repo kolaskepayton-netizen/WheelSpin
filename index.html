@@ -170,12 +170,19 @@ function toggleSettings() {
   panel.hidden = !panel.hidden;
 }
 
-function spin() {
+function spin(forcedLetter = null) {
   if (spinning) return;
   spinning = true;
   document.getElementById("spinBtn").disabled = true;
   document.getElementById("result").textContent = "";
 
+  if (forcedLetter !== null) {
+    const inded = items.findIndex(item => item.name == forced Letter);
+
+    if (index !== -1) {
+      winner = index;
+    }
+  }
   const total = items.reduce((sum, item) => sum + item.weight, 0);
   let random = Math.random() * total;
   let winner = items.length - 1;
@@ -215,6 +222,24 @@ function spin() {
   requestAnimationFrame(animate);
 }
 
+
+canvas.addEventListener("click", function(event) {
+  if (spinning) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const section = rect.width / 3;
+
+  if (x < section) {
+    spin("L");
+  } else if (x < section * 2) {
+    spin("W");
+  } else {
+    spin("R");
+  }
+});
+
+  
 renderSettings();
 drawWheel();
 </script>
