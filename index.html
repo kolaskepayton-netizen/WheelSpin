@@ -176,13 +176,6 @@ function spin(forcedLetter = null) {
   document.getElementById("spinBtn").disabled = true;
   document.getElementById("result").textContent = "";
 
-  if (forcedLetter !== null) {
-    const inded = items.findIndex(item => item.name == forced Letter);
-
-    if (index !== -1) {
-      winner = index;
-    }
-  }
   const total = items.reduce((sum, item) => sum + item.weight, 0);
   let random = Math.random() * total;
   let winner = items.length - 1;
@@ -194,6 +187,14 @@ function spin(forcedLetter = null) {
     }
   }
 
+if (forcedLetter !== null) {
+  const index = items.findIndex(item => item.name === forcedLetter);
+
+  if (index !== -1) {
+    winner = index;
+  }
+}
+  
   const arc = 2 * Math.PI / items.length;
   const pointerAngle = -Math.PI / 2;
   const desired = pointerAngle - (winner + 0.5) * arc;
